@@ -1,0 +1,29 @@
+.icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: #fff;
+  margin-right: 0.5rem;
+}
+
+.node-list {
+  border-left: 1px dashed #ddd;
+  margin-left: 11px;
+  display: none;
+}
+
+.node-list.visible {
+  display: block;
+}
+
+.node-tree {
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 2px;
+}
+
+.matched {
+  color: var(--success);
+}

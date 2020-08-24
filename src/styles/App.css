@@ -1,0 +1,35 @@
+.App {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--background-color);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.visualization-section {
+  display: none;
+}
+
+.visualization-section.visible {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  height: 100%;
+  padding: 2rem;
+}
+
+.tree-section {
+  width: 100%;
+  height: calc(100vh - 20rem);
+  border: 1px var(--white) solid;
+  overflow: auto;
+  margin-top: 2rem;
+}
+
+.tree-section.match-found {
+  border: 1px var(--success) solid;
+}
