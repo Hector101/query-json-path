@@ -19,12 +19,12 @@
   justify-content: center;
   width: 40%;
   height: 100%;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .tree-section {
   width: 100%;
-  height: calc(100vh - 20rem);
+  height: calc(100vh - 22rem);
   border: 1px var(--white) solid;
   overflow: auto;
   margin-top: 2rem;

@@ -2,7 +2,7 @@
   width: 10rem;
   height: 10rem;
   color: #fff;
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -16,8 +16,12 @@
   height: 2.5rem;
 }
 
-.upload-title {
+.drag-n-drop-title {
   font-size: 1rem;
   text-align: center;
   line-height: 10px;
+}
+
+.upload-title {
+  margin-bottom: 0;
 }

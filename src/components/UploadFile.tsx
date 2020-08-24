@@ -23,16 +23,19 @@ const UploadFile = () => {
   });
 
   return (
-    <div
-      {...rootProps}
-      className="root-drag-n-drop"
-    >
-      <input {...inputProps} />
-      <Upload className="upload-icon" />
-      <h1 className="upload-title">Drag and Drop</h1>
-      <span>OR</span>
-      <h1 className="upload-title">Click here</h1>
-    </div>
+    <>
+      <div
+        {...rootProps}
+        className="root-drag-n-drop"
+        >
+        <input {...inputProps} />
+        <Upload className="upload-icon" />
+        <h1 className="drag-n-drop-title">Drag and Drop</h1>
+        <span>OR</span>
+        <h1 className="drag-n-drop-title">Click here</h1>
+      </div>
+      <h4 className="upload-title">Upload a JSON file for visualization</h4>
+    </>
   );
 }
 

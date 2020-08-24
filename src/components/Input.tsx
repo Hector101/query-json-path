@@ -54,7 +54,7 @@ const Input: FunctionComponent<Props> = ({ tree }) => {
     <>
       <input
         className={clsx('input', { error: uiStore.isInvalidExpression })}
-        placeholder="Type JSON Path expression here"
+        placeholder="Type your JSON Path expression here"
         value={inPutValue}
         onChange={hanleInputChange}
       />

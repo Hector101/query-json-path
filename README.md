@@ -1,8 +1,7 @@
 # JSON Path Visualization
-
-> User Interface to query a JSON object using the ​JSONPath​ with an instant and beautiful visualization.
-
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+User Interface to query a JSON object using the ​JSONPath​ with an instant and beautiful visualization.
 
 ## Technologies Used
 - React.js
