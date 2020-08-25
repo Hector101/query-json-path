@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, ChangeEvent } from 'react';
+import React, { FunctionComponent, ChangeEvent } from 'react';
 import { useObserver } from 'mobx-react-lite';
 import jsonpath from 'jsonpath';
 import clsx from 'clsx';
@@ -13,13 +13,9 @@ type Props = {
 };
 
 const Input: FunctionComponent<Props> = ({ tree }) => {
-  const [inPutValue, setInputValue] = useState('');
-
   const { treeStore, uiStore } = useStore();
 
-  const hanleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
+  const handleQuery = (value: string) => {
     if (value) {
       try {
         const results = jsonpath.query(tree, value);
@@ -55,8 +51,14 @@ const Input: FunctionComponent<Props> = ({ tree }) => {
       uiStore.setErrorMessage('');
       treeStore.setQueryResults([]);
     }
+  };
 
-    setInputValue(event.target.value);
+  const hanleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+
+    handleQuery(value);
+  
+    uiStore.setInputValue(event.target.value);
   };
 
   return useObserver(() => (
@@ -64,7 +66,7 @@ const Input: FunctionComponent<Props> = ({ tree }) => {
       <input
         className={clsx('input', { error: uiStore.isInvalidExpression })}
         placeholder="Type your JSON Path expression here"
-        value={inPutValue}
+        value={uiStore.inPutValue}
         onChange={hanleInputChange}
       />
       <span className="invalid-expression">{uiStore.errorMessage}</span>

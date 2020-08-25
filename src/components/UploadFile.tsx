@@ -8,10 +8,13 @@ import { ReactComponent as Upload } from '../svgs/upload.svg';
 import '../styles/UploadFile.css';
 
 const UploadFile = () => {
-  const { treeStore } = useStore();
+  const { treeStore, uiStore } = useStore();
 
   const _getFile = (files: FileList) => {
-    treeStore.loadTree(files[0]);
+    treeStore.loadTree(files[0], () => {
+      uiStore.resetStore();
+      uiStore.resetStore();
+    });
   };
 
   const {

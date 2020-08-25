@@ -1,4 +1,3 @@
-import _isEqual from 'lodash/isEqual';
 import { observable, action } from 'mobx';
 
 export class TreeStore {
@@ -7,7 +6,7 @@ export class TreeStore {
   @observable currentPathName = '';
 
   @action
-  loadTree(file: File) {
+  loadTree(file: File, onComplete?: () => void) {
     if (file) {
       const fileReader = new FileReader();
       fileReader.readAsText(file, 'UTF-8');
@@ -15,6 +14,10 @@ export class TreeStore {
       fileReader.onload = (event) => {
         this.tree = JSON.parse(event.target?.result as string);
       };
+    }
+
+    if (onComplete) {
+      onComplete();
     }
   }
 
@@ -24,12 +27,13 @@ export class TreeStore {
   }
 
   @action
-  filterQueryResults(node: any) {
-    this.queryResults = this.queryResults.filter((queryResult) => !_isEqual(node, queryResult));
+  setCurrentPathName(name: string) {
+    this.currentPathName = name;
   }
 
   @action
-  setCurrentPathName(name: string) {
-    this.currentPathName = name;
+  resetStore() {
+    this.queryResults = [];
+    this.currentPathName = '';
   }
 }
