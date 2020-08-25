@@ -15,11 +15,20 @@ import '../styles/TreeNode.css';
 type Props = {
   node: any;
   type: 'list' | 'json' | 'value';
-  name?: string | null;
+  treeName?: string | null;
   queryResults: any[];
+  currentPathName: string;
+  isMatched: boolean;
 };
 
-const TreeNode: FunctionComponent<Props> = ({ node, name = null, type, queryResults }) => {
+const TreeNode: FunctionComponent<Props> = ({
+  node,
+  treeName = null,
+  type,
+  queryResults,
+  currentPathName,
+  isMatched,
+}) => {
   let subNode;
   let treeBranch;
   
@@ -43,7 +52,7 @@ const TreeNode: FunctionComponent<Props> = ({ node, name = null, type, queryResu
         <span className="node-tree" onClick={toggleVisibility}>
           {visibilityIcon}
           {listIcon}
-          {name}
+          {treeName}
         </span>
       );
     } else if (type === 'json') {
@@ -51,36 +60,54 @@ const TreeNode: FunctionComponent<Props> = ({ node, name = null, type, queryResu
         <span className="node-tree" onClick={toggleVisibility}>
           {visibilityIcon}
           {jsonIcon}
-          {name}
+          {treeName}
           <CollapsedNode
-            isVisible={isVisible || !!(name)}
+            isVisible={isVisible || !!(treeName)}
             node={node}
           />
         </span>
       );
     }
 
-    treeBranch = Object.keys(node).map((n) => {
-      if (typeof node[n] === 'object') {
+    treeBranch = Object.keys(node).map((nodeName) => {
+      if (typeof node[nodeName] === 'object') {
         return (
           <TreeNode
-            key={n}
-            node={node[n]}
-            name={isNaN(Number(n)) ? n : null}
-            type={Array.isArray(node[n]) ? 'list' : 'json'}
+            key={nodeName}
+            node={node[nodeName]}
+            treeName={isNaN(Number(nodeName)) ? nodeName : null}
+            type={Array.isArray(node[nodeName]) ? 'list' : 'json'}
             queryResults={queryResults}
+            currentPathName={currentPathName}
+            isMatched={isMatched || currentPathName === nodeName}
           />
         );
       }
-      return <TreeNode key={n} node={node[n]} name={n} type='value' queryResults={queryResults} />;
+      return (
+        <TreeNode
+          key={nodeName}
+          node={node[nodeName]}
+          treeName={nodeName}
+          type='value'
+          queryResults={queryResults}
+          currentPathName={currentPathName}
+          isMatched={isMatched || currentPathName === nodeName}
+        />
+      );
     });
 
   } else {
-    subNode = <span>{name} : {node}</span>;
+    subNode = <span>{treeName} : {node}</span>;
+  }
+
+  let matched = false;
+
+  if (isMatched) {
+    matched = getMatchStatus(queryResults, node);
   }
 
   return (
-    <li className={clsx({ matched: getMatchStatus(queryResults, node) })}>
+    <li className={clsx({ matched })}>
       {subNode}
       <ul className={clsx('node-list', { visible: isVisible })}>{treeBranch}</ul>
     </li>

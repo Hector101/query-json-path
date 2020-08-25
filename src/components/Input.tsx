@@ -4,6 +4,7 @@ import jsonpath from 'jsonpath';
 import clsx from 'clsx';
 
 import { useStore } from '../store';
+import { getCurrentPathName } from '../utils';
 
 import '../styles/Input.css';
 
@@ -19,22 +20,30 @@ const Input: FunctionComponent<Props> = ({ tree }) => {
   const hanleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    if (value.length > 1) {
+    if (value) {
       try {
         const results = jsonpath.query(tree, value);
+        const path = jsonpath.parse(value);
+
         const resultCount = results.length;
   
         if (resultCount) {
           uiStore.setMatchFound(true);
           uiStore.setErrorMessage('');
+          uiStore.setIsInvalidExpression(false);
           treeStore.setQueryResults(results);
         } else {
           uiStore.setMatchFound(false);
           uiStore.setErrorMessage('Query result not found');
+          uiStore.setIsInvalidExpression(true);
           treeStore.setQueryResults([]);
         }
 
-        uiStore.setIsInvalidExpression(false);
+        getCurrentPathName(path, (pathName) => {
+          if (pathName) {
+            treeStore.setCurrentPathName(pathName);
+          }
+        });
       } catch (e) {
         uiStore.setMatchFound(false);
         uiStore.setIsInvalidExpression(true);

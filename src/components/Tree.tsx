@@ -13,13 +13,15 @@ const Tree: FunctionComponent<{}> = () => {
   return useObserver(() => (
     <ul>
       {
-        Object.keys(treeStore.tree).map((t: string) => (
+        Object.keys(treeStore.tree).map((treeName: string) => (
           <TreeNode
-            key={t}
-            node={treeStore.tree[t]}
-            name={isNaN(Number(t)) ? t : null}
+            key={treeName}
+            node={treeStore.tree[treeName]}
+            treeName={isNaN(Number(treeName)) ? treeName : null}
             type="json"
             queryResults={treeStore.queryResults}
+            currentPathName={treeStore.currentPathName}
+            isMatched={Array.isArray(treeStore.tree) || treeStore.currentPathName === treeName}
           />
         ))
       }

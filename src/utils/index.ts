@@ -12,3 +12,12 @@ export const getMatchStatus = (queryResults: any[], node: any) => {
   }
   return status;
 };
+
+export const getCurrentPathName = (path: any[], cb: (pathName?: string) => void) => {
+  for (let i = path.length; i-- > 0;) {
+    if (path[i].expression.type === 'identifier') {
+      return cb(path[i].expression.value);
+    }
+  }
+  cb();
+};
