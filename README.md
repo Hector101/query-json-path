@@ -3,6 +3,9 @@
 
 User Interface to query a JSON object using the ​JSONPath​ with an instant and beautiful visualization.
 
+## Preview Link
+- https://query-json-path.netlify.app
+
 ## Technologies Used
 - React.js
 - TypeScript
