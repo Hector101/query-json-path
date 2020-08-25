@@ -1,4 +1,3 @@
-import _filter from 'lodash/filter';
 import _isEqual from 'lodash/isEqual';
 import { observable, action } from 'mobx';
 
