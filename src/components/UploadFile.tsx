@@ -11,10 +11,12 @@ const UploadFile = () => {
   const { treeStore, uiStore } = useStore();
 
   const _getFile = (files: FileList) => {
-    treeStore.loadTree(files[0], () => {
+    if (files[0]) {
       uiStore.resetStore();
-      uiStore.resetStore();
-    });
+      treeStore.resetStore();
+
+      treeStore.loadTree(files[0]);
+    }
   };
 
   const {

@@ -6,19 +6,13 @@ export class TreeStore {
   @observable currentPathName = '';
 
   @action
-  loadTree(file: File, onComplete?: () => void) {
-    if (file) {
-      const fileReader = new FileReader();
-      fileReader.readAsText(file, 'UTF-8');
-  
-      fileReader.onload = (event) => {
-        this.tree = JSON.parse(event.target?.result as string);
-      };
-    }
+  loadTree(file: File) {
+    const fileReader = new FileReader();
+    fileReader.readAsText(file, 'UTF-8');
 
-    if (onComplete) {
-      onComplete();
-    }
+    fileReader.onload = (event) => {
+      this.tree = JSON.parse(event.target?.result as string);
+    };
   }
 
   @action
@@ -33,6 +27,7 @@ export class TreeStore {
 
   @action
   resetStore() {
+    this.tree = {};
     this.queryResults = [];
     this.currentPathName = '';
   }
