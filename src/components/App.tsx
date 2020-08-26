@@ -9,8 +9,6 @@ import Input from './Input';
 
 import { useStore } from '../store';
 
-import { ReactComponent as DownArrowIcon } from '../svgs/down-arrow.svg';
-import { ReactComponent as RightArrowIcon } from '../svgs/right-arrow.svg';
 import { ReactComponent as JsonIcon } from '../svgs/json.svg';
 import { ReactComponent as ListIcon } from '../svgs/list.svg';
 
