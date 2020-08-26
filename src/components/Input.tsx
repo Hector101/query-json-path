@@ -4,7 +4,7 @@ import jsonpath from 'jsonpath';
 import clsx from 'clsx';
 
 import { useStore } from '../store';
-import { getCurrentPathName } from '../utils';
+import { getCurrentRootName } from '../utils';
 
 import '../styles/Input.css';
 
@@ -35,9 +35,9 @@ const Input: FunctionComponent<Props> = ({ tree }) => {
           treeStore.setQueryResults([]);
         }
 
-        getCurrentPathName(path, (pathName) => {
+        getCurrentRootName(path, (pathName) => {
           if (pathName) {
-            treeStore.setCurrentPathName(pathName);
+            treeStore.setCurrentRootName(pathName);
           }
         });
       } catch (e) {

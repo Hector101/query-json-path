@@ -3,6 +3,8 @@ import { useObserver } from 'mobx-react-lite';
 
 import TreeNode from './TreeNode';
 
+import { getTreeName } from '../utils';
+
 import { useStore } from '../store';
 
 import '../styles/Tree.css';
@@ -17,11 +19,11 @@ const Tree: FunctionComponent<{}> = () => {
           <TreeNode
             key={treeName}
             node={treeStore.tree[treeName]}
-            treeName={isNaN(Number(treeName)) ? treeName : null}
-            type="json"
+            treeName={getTreeName(treeName)}
+            nodeType="json"
             queryResults={treeStore.queryResults}
-            currentPathName={treeStore.currentPathName}
-            isMatched={Array.isArray(treeStore.tree) || treeStore.currentPathName === treeName}
+            currentRootName={treeStore.currentRootName}
+            isMatched={Array.isArray(treeStore.tree) || treeStore.currentRootName === treeName}
           />
         ))
       }

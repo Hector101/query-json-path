@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import CollapsedNode from './CollapsedNode';
 
-import { getMatchStatus } from '../utils';
+import { getMatchStatus, getNodeType, getTreeName } from '../utils';
 
 import { ReactComponent as DownArrowIcon } from '../svgs/down-arrow.svg';
 import { ReactComponent as RightArrowIcon } from '../svgs/right-arrow.svg';
@@ -14,19 +14,19 @@ import '../styles/TreeNode.css';
 
 type Props = {
   node: any;
-  type: 'list' | 'json' | 'value';
+  nodeType: 'list' | 'json' | 'value';
   treeName?: string | null;
   queryResults: any[];
-  currentPathName: string;
+  currentRootName: string;
   isMatched: boolean;
 };
 
 const TreeNode: FunctionComponent<Props> = ({
   node,
   treeName = null,
-  type,
+  nodeType,
   queryResults,
-  currentPathName,
+  currentRootName,
   isMatched,
 }) => {
   let subNode;
@@ -45,9 +45,9 @@ const TreeNode: FunctionComponent<Props> = ({
     setIsVisible(!isVisible);
   };
   
-  if (type !== 'value') {
+  if (nodeType !== 'value') {
 
-    if (type === 'list') {
+    if (nodeType === 'list') {
       subNode = (
         <span className="node-tree" onClick={toggleVisibility}>
           {visibilityIcon}
@@ -55,7 +55,7 @@ const TreeNode: FunctionComponent<Props> = ({
           {treeName}
         </span>
       );
-    } else if (type === 'json') {
+    } else if (nodeType === 'json') {
       subNode = (
         <span className="node-tree" onClick={toggleVisibility}>
           {visibilityIcon}
@@ -75,11 +75,11 @@ const TreeNode: FunctionComponent<Props> = ({
           <TreeNode
             key={nodeName}
             node={node[nodeName]}
-            treeName={isNaN(Number(nodeName)) ? nodeName : null}
-            type={Array.isArray(node[nodeName]) ? 'list' : 'json'}
+            treeName={getTreeName(nodeName)}
+            nodeType={getNodeType(node[nodeName])}
             queryResults={queryResults}
-            currentPathName={currentPathName}
-            isMatched={isMatched || currentPathName === nodeName}
+            currentRootName={currentRootName}
+            isMatched={isMatched || currentRootName === nodeName}
           />
         );
       }
@@ -88,26 +88,26 @@ const TreeNode: FunctionComponent<Props> = ({
           key={nodeName}
           node={node[nodeName]}
           treeName={nodeName}
-          type='value'
+          nodeType='value'
           queryResults={queryResults}
-          currentPathName={currentPathName}
-          isMatched={isMatched || currentPathName === nodeName}
+          currentRootName={currentRootName}
+          isMatched={isMatched || currentRootName === nodeName}
         />
       );
     });
 
   } else {
-    subNode = <span>{treeName} : {node}</span>;
-  }
-
-  let matched = false;
-
-  if (isMatched) {
-    matched = getMatchStatus(queryResults, node);
+    subNode = <span className="key-value"><span className="key">{treeName}</span> : {node}</span>;
   }
 
   return (
-    <li className={clsx({ matched })}>
+    <li
+      className={clsx({
+        matched: isMatched
+          ? getMatchStatus(queryResults, node)
+          : false 
+        }
+      )}>
       {subNode}
       <ul className={clsx('node-list', { visible: isVisible })}>{treeBranch}</ul>
     </li>

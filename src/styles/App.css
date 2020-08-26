@@ -27,9 +27,30 @@
   height: calc(100vh - 22rem);
   border: 1px var(--white) solid;
   overflow: auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .tree-section.match-found {
   border: 1px var(--success) solid;
+}
+
+.tips-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.tips {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.tips-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: var(--white);
+  margin-right: 0.5rem;
 }

@@ -27,3 +27,10 @@
 .matched {
   color: var(--success);
 }
+
+.key-value {
+  line-height: 1.5rem;
+}
+.key {
+  font-weight: bold;
+}

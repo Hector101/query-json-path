@@ -13,7 +13,7 @@ export const getMatchStatus = (queryResults: any[], node: any) => {
   return status;
 };
 
-export const getCurrentPathName = (path: any[], cb: (pathName?: string) => void) => {
+export const getCurrentRootName = (path: any[], cb: (pathName?: string) => void) => {
   for (let i = path.length; i-- > 0;) {
     if (path[i].expression.type === 'identifier') {
       return cb(path[i].expression.value);
@@ -21,3 +21,11 @@ export const getCurrentPathName = (path: any[], cb: (pathName?: string) => void)
   }
   cb();
 };
+
+export const getNodeType = (node: any[] | any) => {
+  return Array.isArray(node) ? 'list' : 'json';
+}
+
+export const getTreeName = (nodeName: string) => {
+  return isNaN(Number(nodeName)) ? nodeName : null;
+}

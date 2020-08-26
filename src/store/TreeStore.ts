@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 export class TreeStore {
   @observable tree: any = {};
   @observable queryResults: any[] = [];
-  @observable currentPathName = '';
+  @observable currentRootName = '';
 
   @action
   loadTree(file: File) {
@@ -21,14 +21,14 @@ export class TreeStore {
   }
 
   @action
-  setCurrentPathName(name: string) {
-    this.currentPathName = name;
+  setCurrentRootName(name: string) {
+    this.currentRootName = name;
   }
 
   @action
   resetStore() {
     this.tree = {};
     this.queryResults = [];
-    this.currentPathName = '';
+    this.currentRootName = '';
   }
 }
